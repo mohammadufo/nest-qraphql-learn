@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { Repository } from 'typeorm';
 import { UserInputError } from '@nestjs/apollo';
+import { UpdateCoffeeInput } from './dto/update-coffee.input';
 
 @Injectable()
 export class CoffeesService {
@@ -27,6 +28,19 @@ export class CoffeesService {
 
   async create(createCoffeeInput: CreateCoffeeInput) {
     const coffee = this.coffeesRepository.create(createCoffeeInput);
+    return this.coffeesRepository.save(coffee);
+  }
+
+  async update(id: number, updateCoffeeInput: UpdateCoffeeInput) {
+    const coffee = await this.coffeesRepository.preload({
+      id,
+      ...updateCoffeeInput,
+    });
+
+    if (!coffee) {
+      throw new UserInputError('Coffee not found!');
+    }
+
     return this.coffeesRepository.save(coffee);
   }
 }
