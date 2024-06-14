@@ -31,4 +31,9 @@ export class CoffeesResolver {
   ) {
     return this.coffeesService.update(id, updateCoffeeInput);
   }
+
+  @Mutation(() => Coffee, { name: 'removeCoffee' })
+  async remove(@Args('id') id: number) {
+    return this.coffeesService.remove(id);
+  }
 }

@@ -43,4 +43,12 @@ export class CoffeesService {
 
     return this.coffeesRepository.save(coffee);
   }
+
+  async remove(id: number) {
+    const coffee = await this.coffeesRepository.findOne({ where: { id } });
+    if (!coffee) {
+      throw new UserInputError('Coffee not found!');
+    }
+    return this.coffeesRepository.remove(coffee);
+  }
 }

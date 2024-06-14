@@ -19,6 +19,7 @@ type Query {
 type Mutation {
   createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
   updateCoffee(id: Float!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
+  removeCoffee(id: Float!): Coffee!
 }
 
 """Create coffee input object type."""
