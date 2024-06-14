@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { CoffeesModule } from './coffees/coffees.module';
+import { CoffeesResolver } from './coffees/coffees.resolver';
 
 @Module({
   imports: [
@@ -11,8 +13,9 @@ import { join } from 'path';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    CoffeesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CoffeesResolver],
 })
 export class AppModule {}
